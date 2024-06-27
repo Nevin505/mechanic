@@ -1,18 +1,36 @@
-import { useState } from "react";
+import {  useState } from "react";
+
 import { NavLink } from "react-router-dom";
-import { NAV_LINKS } from "../utils/LandinPageContents";
+import { NAV_LINKS } from "../../utils/LandinPageContents";
 
-import Button from "./Button";
+import Button from "../Button";
 
-import logo from "../assets/logo/logo.png";
-import hamburger from "../assets/icon/icons8-hamburger-menu.svg";
-import closeButton from "../assets/icon/icons8-close.svg";
+import logo from "../../assets/logo/logo.png";
+import hamburger from "../../assets/icon/icons8-hamburger-menu.svg";
+import closeButton from "../../assets/icon/icons8-close.svg"
+import Login from "../login/Login";
+import Portal from "../Portal";
 
-const NavBar = () => {
+
+const Header = () => {
+  
   const [isSmallScreenNavbarVisible, setSmallScreenNavbarVisible] =
     useState(false);
+
+    const [showLoginForm, setShowLoginForm] = useState(false);
+
+
+    const loginDisplayHandler=()=>{
+      console.log(showLoginForm)
+      setShowLoginForm(true)
+    }
+
+    const hideLoginFormHandler=()=>{
+      setShowLoginForm(false)
+    }
+
   return (
-    <header className="max-container absolute z-10 bg-white w-full">
+    <header className="max-container  bg-white w-full">
       <nav className="flex justify-between w-full px-4 items-center ">
         {
           !isSmallScreenNavbarVisible ? (
@@ -28,7 +46,7 @@ const NavBar = () => {
                 })}
               </ul>
               <div>
-                <Button>Book An Appointment</Button>
+                <Button onClick={loginDisplayHandler}>Book An Appointment</Button>
               </div>
               <div
                 className="hidden max-lg:block"
@@ -55,8 +73,10 @@ const NavBar = () => {
           )
         }
       </nav>
+  { showLoginForm &&  <Portal><Login  onClick={hideLoginFormHandler}/></Portal> }
     </header>
   );
 };
 
-export default NavBar;
+export default Header;
+//  createPortal(<Login  onClick={hideLoginFormHandler}/> , document.getElementById("modal"))

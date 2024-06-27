@@ -1,5 +1,5 @@
-import Carousel from "../components/Carousel";
-import NavBar from "../components/NavBar";
+import Carousel from "../components/LandingPage/Carousel";
+import Header from "../components/LandingPage/Header";
 
 import Card from "../components/Card";
 
@@ -8,16 +8,16 @@ import LandinPageStyles from "./landingPage.module.css";
 import { BOOKING_STEPS, LINKS, SERVICES, SOCIAL_MEDIA_LINKS } from "../utils/LandinPageContents";
 import { SPECILISATIONS } from "../utils/LandinPageContents";
 
-import redTriangleArrow from "../assets/images/Landing-Page/image/red_triangle.png";
-import whyChooseUs from "../assets/images/Landing-Page/image/Why-choose-us-1.png";
-import howItWorks from "../assets/images/Landing-Page/image/How-it-works-1.jpg";
+import redTriangleArrow from "../assets/Landing-Page/image/red_triangle.png";
+import whyChooseUs from "../assets/Landing-Page/image/Why-choose-us-1.png";
+import howItWorks from "../assets/Landing-Page/image/How-it-works-1.jpg";
 import logo from "../assets/logo/logo.png";
 
 const LandinPage = () => {
   console.log("Rendering Landing Page");
   return (
     <div className="max-container relative">
-      <NavBar />
+      <Header />
       <Carousel />
       <section className=" flex flex-col gap-8 items-center pt-8 lg:pt-14 bg-primary-900 ">
         <div className="flex flex-col items-center gap-4">
@@ -107,8 +107,8 @@ const LandinPage = () => {
           {/* Services */}
           <div className="flex flex-col flex-1 gap-4 items-center">
             <h1 className="text-2xl">Services</h1>
-            {SERVICES.map(service=>{
-              return <li>{service}</li>
+            {SERVICES.map((service,index)=>{
+              return <li key={index}>{service}</li>
             })}
           </div>
           <div className="flex flex-col flex-1  gap-4 items-center">

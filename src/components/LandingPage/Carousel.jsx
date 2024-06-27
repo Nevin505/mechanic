@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { carouselContent } from '../utils/LandinPageContents'
+import { carouselContent } from '../../utils/LandinPageContents'
 
 // const images=[carouselImage1,carouselImage2,carouselImage3];
 

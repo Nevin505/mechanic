@@ -1,12 +1,12 @@
-import carouselImage1 from "../assets/images/Landing-Page/carousel-images/landing-page-carousel-2.jpg";
-import carouselImage2 from "../assets/images/Landing-Page/carousel-images/landing-page-carousel-3.jpg";
-import carouselImage3 from "../assets/images/Landing-Page/carousel-images/landing-page-carousel-4.jpg";
+import carouselImage1 from "../assets/Landing-Page/carousel-images/landing-page-carousel-2.jpg";
+import carouselImage2 from "../assets/Landing-Page/carousel-images/landing-page-carousel-3.jpg";
+import carouselImage3 from "../assets/Landing-Page/carousel-images/landing-page-carousel-4.jpg";
 
-import Diagonistics from "../assets/images/Landing-Page/image/car-diagnostic.svg";
-import CarBrake from "../assets/images/Landing-Page/image/Car-Brake.svg";
-import CarDetailing from "../assets/images/Landing-Page/image/Car-Detailing.svg";
-import CarOil from "../assets/images/Landing-Page/image/Car-Oil.svg";
-import carSuspension from "../assets/images/Landing-Page/image/car-suspension.svg";
+import Diagonistics from "../assets/Landing-Page/image/car-diagnostic.svg";
+import CarBrake from "../assets/Landing-Page/image/Car-Brake.svg";
+import CarDetailing from "../assets/Landing-Page/image/Car-Detailing.svg";
+import CarOil from "../assets/Landing-Page/image/Car-Oil.svg";
+import carSuspension from "../assets/Landing-Page/image/car-suspension.svg";
 
 // Social Media Icons Links
 import { FaInstagramSquare } from "react-icons/fa";
