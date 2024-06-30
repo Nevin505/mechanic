@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,11 +13,13 @@ import Input from '../Input';
 // Icons
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { loginUser } from '../../apis/auth';
 
 
 const Login =({onClick}) =>{
 
    const[errors,setErrors]=useState();
+   const navigate=useNavigate();
 
     const loginHandler=async(e)=>{
         e.preventDefault();
@@ -26,7 +29,19 @@ const Login =({onClick}) =>{
 
          const valiadationInformation=validateInputs({email,password});
          if(valiadationInformation){
-            toast.success("No Errors")
+            console.log({email,password})
+            const user={email,password}
+            try{
+               const result=await loginUser(user);
+               console.log(result);
+               sessionStorage.setItem("token",result.data.token)
+               navigate(`/${result.data.role==='User'?'user':'admin'}`)
+               toast.success("Sucess");
+            }
+            catch(error){
+                console.log(error)
+                  alert(error)
+            }
          }
          else{
             toast.info("Errors")

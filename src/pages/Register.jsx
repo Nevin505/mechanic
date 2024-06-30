@@ -5,7 +5,8 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import RadioButton from "../components/RadioButton";
 
-import { postUser } from "../apis/auth";
+import {registerUser } from "../apis/auth";
+import { valiadateInputs } from "../utils/FormValidation";
 
 const inputFields = [
   { placeholder: "First Name", name: "firstName", type: "text" },
@@ -19,6 +20,11 @@ const Register = () => {
   const [errors, setErrors] = useState();
   const navigate = useNavigate();
 
+
+  const errorHandler=(formErrors)=>{
+    setErrors(formErrors)
+  }
+
   const registerHandler = async(e) => {
     e.preventDefault();
 
@@ -31,52 +37,25 @@ const Register = () => {
     const password = formData.get("password");
     const role = formData.get("role");
 
-    const valiadte = valiadateInputs({
-      firstName,
-      lastName,
-      phoneNumber,
-      email,
-      password,
-      role,
-    });
+   const validateKeys={ firstName,lastName,phoneNumber,email,password,role}
+
+    const valiadte = valiadateInputs(errorHandler,validateKeys);
 
     if (valiadte) {
-      alert("No Errors");
       try {
-        const response = await postUser({
-          firstName,
-          lastName,
-          email,
-          password,
-          phoneNumber,
-          role,
-        });
+        const response = await registerUser({firstName,lastName,email,password,phoneNumber,role});
+        console.log("response",response)
         console.log(response);
         if (response.status === 201) {
           alert("Profile Created");
           navigate("/");
         }
       } catch (error) {
+        console.log(error)
         alert("Something went Wrong");
       }
     } else {
       alert("Errors");
-    }
-  };
-
-  const valiadateInputs = ({ ...validateElements }) => {
-    const error = {};
-    Object.keys(validateElements).forEach((validateElement) => {
-      if (!validateElements[validateElement]) {
-        error[validateElement] = validateElement + " is mising";
-      }
-    });
-    if (Object.keys(error).length > 0) {
-      setErrors(error);
-      return false;
-    } else {
-      setErrors("");
-      return true;
     }
   };
 
