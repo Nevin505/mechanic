@@ -10,19 +10,6 @@ const ServiceAndVehicleRegistration = ({ services }) => {
    const[userServices,setUserService]=useState([]);
   
 
-  const addUserServiceHandler=(service)=>{
-    console.log("clicked")
-    console.log(service)
-    const prevUserServices=[...userServices];
-   const result=prevUserServices.find((prevService=>prevService._id===service._id));
-   if(!result){
-    setUserService([prevUserServices,service])
-   }
-   else{
-    alert("Already Added")
-   }
-  }
-
   useEffect(() => {
     console.log(services);
     if (services) {
@@ -38,8 +25,30 @@ const ServiceAndVehicleRegistration = ({ services }) => {
     }
   }, [services]);
 
+
+  // to place a service for the user Vehicle
+  const addUserServiceHandler=(service)=>{
+    console.log("clicked")
+    console.log(service)
+    const prevUserServices=[...userServices];
+   const result=prevUserServices.find((prevService=>prevService._id===service._id));
+   if(!result){
+    setUserService([...prevUserServices,service])
+   }
+   else{
+    alert("Already Added")
+   }
+  }
+
+  // To clear Orders
+
+  const clearPreviousOrder=()=>{
+    setUserService([])
+  }
+
+console.log(userServices)
   return (
-    <div className="flex justify-between gap-8" >
+    <div className="flex justify-between  lg:gap-8" >
         <div className="flex flex-col  flex-1  overflow-y-auto h-[23rem]">
         {services
         ? service?.map((service) => {
@@ -56,7 +65,7 @@ const ServiceAndVehicleRegistration = ({ services }) => {
           })
         :  <p >Please Select a Service</p>}
         </div>
-          <VehicleServiceForm userServices={userServices}/>
+          <VehicleServiceForm userServices={userServices} clearPreviousOrder={clearPreviousOrder}/>
     </div>
   );
 };

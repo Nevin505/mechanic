@@ -1,14 +1,13 @@
-import SideNav from "./SideNav";
-import Services from "./Services";
+import SideNav from "../../components/user/SideNav";
+import Services from "../../components/user/Services";
 
 
-import VehicleServiceForm from "./VehicleServiceForm";
-import ServiceDescription from "./ServiceDescription";
+import VehicleServiceForm from "../../components/user/VehicleServiceForm";
 import { useState } from "react";
-import ServiceAndVehicleRegistration from "./ServiceAndVehicleRegistration";
+import ServiceAndVehicleRegistration from "../../components/user/ServiceAndVehicleRegistration";
 
 
-const UserlandinPage = () => {
+const UserLandingPage = () => {
  
   const[service,setService]=useState("");
 
@@ -34,18 +33,16 @@ const UserlandinPage = () => {
   // console.log(userServices)
 
   return (
-    <section className="max-container flex flex-col ">
+    <section className="max-container flex flex-col  ">
       <SideNav/>
       <div className="flex flex-col items-center px-4 pt-8 max-lg:pt-16">
         <h1>Go Mechanic Car Service -Online Booking</h1>
         {/* Service  Vertical Scroll bar */}
         <Services selectService={selectService}/>
         {/* Basic Service Offered Description and Vehicle Registration Form */}
-        <div className="flex  gap-4 justify-between w-full px-28 py-8 max-lg:px-16 max-lg:flex-col">
+        <div className="flex  gap-4 justify-between items-center w-full lg:px-28 py-8 max-lg:px-8 max-lg:flex-col">
           {/* <ServiceDescription services={service}/> */}
           <div className="flex flex-col flex-1">
-          {/* <ServiceDescription services={service} addUserServiceHandler={addUserServiceHandler} /> */}
-          {/* <ServiceDescription services={service}  /> */}
           <ServiceAndVehicleRegistration  services={service}/>
           </div>
 
@@ -55,4 +52,4 @@ const UserlandinPage = () => {
   );
 };
 
-export default UserlandinPage;
+export default UserLandingPage;

@@ -22,8 +22,9 @@ const SideNav = () => {
           <img src={hamburger} alt="hamBurger" />
         </button>
       ) : (
-        <aside className="fixed bg-slate-600  z-20 h-screen">
-          <div className="flex flex-col justify-between gap-8 bg-black  px-8 py-4 h-screen">
+        <aside className="fixed bg-slate-600  
+         z-20  w-screen opacity-85 h-screen">
+          <div className="flex flex-col justify-between gap-8  w-80 bg-black  px-8 py-4 h-screen">
             {USER_SIDE_NAV.map((sideNav,index) => {
               return (
                 <div key={index} className="text-white cursor-pointer hover:bg-slate-950">
@@ -35,7 +36,7 @@ const SideNav = () => {
               <Button>Logout</Button>
             </div>
           </div>
-          <div className="fixed top-0  right-2" onClick={closeSideNavBar}>
+          <div className="fixed top-0  cursor-pointer right-2" onClick={closeSideNavBar}>
             <img src={closeButton} alt="closeButtton" width={48} />
           </div>
         </aside>
