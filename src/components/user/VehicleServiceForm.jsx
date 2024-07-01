@@ -41,19 +41,18 @@ const VehicleServiceForm = ({userServices,clearPreviousOrder}) => {
     const valiadte = valiadateInputs(errorHandler,validateKeys);
   if (valiadte) {
     try {
+      // Adding Request Body
       const requestObject={vehicleNumber:numberPlate,company,model}
+      // Adding Request Headers for Authentication
       const reqHeaders={headers:{
         "Authorization":`Bearer ${authToken}`
       }}
-      try{
+  
         const response = await postUserVehicleDetails(requestObject,reqHeaders);
         if(response.status===201)
         console.log("response",response)
         setCartState({submitted:true,orderId:response.data.order_id})
-      }
-      catch(error){
-         alert("Error")
-      }
+    
     } catch (error) {
       console.log(error)
       alert("Something went Wrong");

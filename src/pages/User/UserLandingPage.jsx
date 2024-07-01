@@ -1,40 +1,35 @@
-import SideNav from "../../components/user/SideNav";
+import SideNav from "../../components/SideNav";
 import Services from "../../components/user/Services";
 
 
-import VehicleServiceForm from "../../components/user/VehicleServiceForm";
 import { useState } from "react";
 import ServiceAndVehicleRegistration from "../../components/user/ServiceAndVehicleRegistration";
+import { USER_SIDE_NAV } from "../../utils/UserPageContent";
+import Button from "../../components/Button";
 
 
 const UserLandingPage = () => {
  
   const[service,setService]=useState("");
 
-  // const[userServices,setUserService]=useState([]);
-  
-
-  // const addUserServiceHandler=(service)=>{
-  //   console.log("clicked")
-  //   console.log(service)
-  //   const prevUserServices=[...userServices];
-  //  const result=prevUserServices.find((prevService=>prevService._id===service._id));
-  //  if(!result){
-  //   setUserService([prevUserServices,service])
-  //  }
-  //  else{
-  //   alert("Already Added")
-  //  }
-  // }
-
   const selectService=(service)=>{
     setService(service)
   }
-  // console.log(userServices)
 
   return (
     <section className="max-container flex flex-col  ">
-      <SideNav/>
+      <SideNav>
+      {USER_SIDE_NAV.map((sideNav,index) => {
+              return (
+                <div key={index} className="text-white cursor-pointer hover:bg-slate-950">
+                  {sideNav}
+                </div>
+              );
+            })}
+            <div>
+              <Button>Logout</Button>
+            </div>
+        </SideNav>
       <div className="flex flex-col items-center px-4 pt-8 max-lg:pt-16">
         <h1>Go Mechanic Car Service -Online Booking</h1>
         {/* Service  Vertical Scroll bar */}
