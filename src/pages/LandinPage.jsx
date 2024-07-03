@@ -21,7 +21,7 @@ const LandinPage = () => {
       <Carousel />
       <section className=" flex flex-col gap-8 items-center pt-8 lg:pt-14 bg-primary-900 ">
         <div className="flex flex-col items-center gap-4">
-          <img src={redTriangleArrow} width={34} alt="" />
+          <img src={redTriangleArrow} width={34} alt=""  loading='lazy' />
           <h1 className="text-4xl font-bold text-white">Why Choose Us </h1>
           <p className="font-semibold text-white">
             We Offer Full Service Auto Repair & Maintenance
@@ -34,7 +34,7 @@ const LandinPage = () => {
           <img
             src={whyChooseUs}
             alt="Car-Side-View"
-            className="h-52 w-full   object-contain"
+            className="h-52 w-full   object-contain"  loading='lazy'
           />
         </div>
         <div className="flex  flex-1 justify-center gap-8 w-full px-4 bg-white lg:px-24 max-lg:flex-wrap">
@@ -43,7 +43,7 @@ const LandinPage = () => {
               <img
                 src={specilisation.image}
                 alt={specilisation.label}
-                width={48}
+                width={48}  loading='lazy'
               />
               <h1>{specilisation.heading}</h1>
               <p>{specilisation.paragraph}</p>
@@ -56,13 +56,13 @@ const LandinPage = () => {
       <section className="relative ">
         <div className="h-[24rem] relative">
           <div className="flex flex-col items-center gap-4 absolute  left-10 top-1/3  lg:left-[32rem] text-center">
-            <img src={redTriangleArrow} width={34} alt="" />
+            <img src={redTriangleArrow} width={34} alt="red-traingle-arrow"   loading='lazy'/>
             <h1 className="text-4xl font-bold text-white">Why Choose Us </h1>
             <p className="font-semibold text-white ">
               We Offer Full Service Auto Repair & Maintenance
             </p>
           </div>
-          <img src={howItWorks} alt="Car-Image" className="w-full h-full" />
+          <img src={howItWorks} alt="Car-Image" className="w-full h-full"   loading='lazy'/>
         </div>
         {/* Our Booking Steps */}
         <div className="flex px-8 lg:px-24 gap-8 placeholder:  top-80 w-full max-lg:flex-col lg:absolute  lg:gap-14">

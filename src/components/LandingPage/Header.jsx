@@ -35,7 +35,7 @@ const Header = () => {
         {
           !isSmallScreenNavbarVisible ? (
             <>
-              <img src={logo} alt="" className="w-20 rounded-full" />
+              <img src={logo} alt="" className="w-20 rounded-full"  loading='lazy' />
               <ul className="flex justify-around items-center flex-1 max-lg:hidden">
                 {NAV_LINKS.map((navlink) => {
                   return (
@@ -52,7 +52,7 @@ const Header = () => {
                 className="hidden max-lg:block"
                 onClick={() => setSmallScreenNavbarVisible(true)}
               >
-                <img src={hamburger} alt="hamburger-menu" />
+                <img src={hamburger} alt="hamburger-menu"  loading='lazy' />
               </div>
             </>
           ) : (
@@ -67,7 +67,7 @@ const Header = () => {
                 })}
               </ul>
               <div onClick={() => setSmallScreenNavbarVisible(false)}>
-                <img src={closeButton} alt="close button" />
+                <img src={closeButton} alt="close button"   loading='lazy'/>
               </div>
             </>
           )

@@ -1,6 +1,6 @@
-import carouselImage1 from "../assets/Landing-Page/carousel-images/landing-page-carousel-2.jpg";
-import carouselImage2 from "../assets/Landing-Page/carousel-images/landing-page-carousel-3.jpg";
-import carouselImage3 from "../assets/Landing-Page/carousel-images/landing-page-carousel-4.jpg";
+import carouselImage1 from "../assets/Landing-Page/carousel-images/landing-page-carousel-2.webp";
+import carouselImage2 from "../assets/Landing-Page/carousel-images/landing-page-carousel-3.webp";
+import carouselImage3 from "../assets/Landing-Page/carousel-images/landing-page-carousel-4.webp";
 
 import Diagonistics from "../assets/Landing-Page/image/car-diagnostic.svg";
 import CarBrake from "../assets/Landing-Page/image/Car-Brake.svg";

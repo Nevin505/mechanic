@@ -38,7 +38,7 @@ const UserLandingPage = () => {
         <div className="flex  gap-4 justify-between items-center w-full lg:px-28 py-8 max-lg:px-8 max-lg:flex-col">
           {/* <ServiceDescription services={service}/> */}
           <div className="flex flex-col flex-1">
-          <ServiceAndVehicleRegistration  services={service}/>
+          <ServiceAndVehicleRegistration  services={service} serviceType={service}/>
           </div>
 
         </div>

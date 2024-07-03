@@ -1,4 +1,4 @@
-export const ADMIN_PAGE_SIDEBAR=[{label:"Assigin Task",navigate:""},{label:"Add Techinican",navigate:"/add-techinican"},{label:"Report",navigate:""}]
+export const ADMIN_PAGE_SIDEBAR=[{label:"Assigin Task",navigate:"/assigin-task"},{label:"Add Techinican",navigate:"/add-techinican"},{label:"Report",navigate:""}]
 
 export const TECHNICAN_REGISTRATION_FORM = [
     { placeholder: "First name", name: "firstName", type: "text" },

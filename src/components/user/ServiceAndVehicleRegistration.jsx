@@ -4,7 +4,7 @@ import { fetchService } from "../../apis/user/Services";
 import Button from "../Button";
 import VehicleServiceForm from "./VehicleServiceForm";
 
-const ServiceAndVehicleRegistration = ({ services }) => {
+const ServiceAndVehicleRegistration = ({ services ,serviceType}) => {
   const [service, setService] = useState();
 
    const[userServices,setUserService]=useState([]);
@@ -30,10 +30,11 @@ const ServiceAndVehicleRegistration = ({ services }) => {
   const addUserServiceHandler=(service)=>{
     console.log("clicked")
     console.log(service)
+    const userService={...service,serviceType};
     const prevUserServices=[...userServices];
    const result=prevUserServices.find((prevService=>prevService._id===service._id));
    if(!result){
-    setUserService([...prevUserServices,service])
+    setUserService([...prevUserServices,userService])
    }
    else{
     alert("Already Added")

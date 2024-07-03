@@ -18,7 +18,7 @@ const Carousel = () => {
   return (
     <div className="max-container">
           <div className='w-full h-[34rem] relative'>
-          <img src={carouselContent[currentSlide].image}  alt="no image" className='w-full h-full' />
+          <img src={carouselContent[currentSlide].image}  alt="no image" className='w-full h-full' loading='lazy' />
            <div className='absolute left-4 bottom-16 px-4 py-4 bg-slate-400   max-lg:left-4  lg:px-16 lg:left-20 '>
            <h2 className='font-bold text-4xl max-w-96 '>{carouselContent[currentSlide].heading}</h2>
            <p className='font-semibold leading-6 max-w-[34rem] hidden lg:block'>{carouselContent[currentSlide].paragraph}</p>
