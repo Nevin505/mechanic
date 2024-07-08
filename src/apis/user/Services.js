@@ -13,3 +13,8 @@ export const postUserVehicleDetails = async (service, reqHeaders) => {
 export const updateCartDetails=async(reqBody)=>{
     return await axios.put(`${BASE_URL}/addOrder`,reqBody,{})
 }
+
+// to get the user service history
+export const serviceHistory=async()=>{
+  return await axios.get(`${BASE_URL}/user/service-history`,{},{})
+}

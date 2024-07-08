@@ -29,3 +29,4 @@ export const fetchTechinicianDetails=async()=>{
 export const getVehiclesCount=async()=>{
     return await axios.get(`${BASE_URL}/admin/get-count`,{},{})
 }
+

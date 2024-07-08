@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import Input from '../Input'
-import Button from '../Button'
+import Input from '../common/Input'
+import Button from '../common/Button'
 
 import { VEHICLE_SERVICE_FORMS } from "../../utils/UserPageContent"
 import { valiadateInputs } from "../../utils/FormValidation";

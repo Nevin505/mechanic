@@ -1,11 +1,11 @@
-import SideNav from "../../components/SideNav";
+import SideNav from "../../components/common/SideNav";
 import Services from "../../components/user/Services";
 
 
 import { useState } from "react";
 import ServiceAndVehicleRegistration from "../../components/user/ServiceAndVehicleRegistration";
 import { USER_SIDE_NAV } from "../../utils/UserPageContent";
-import Button from "../../components/Button";
+import Button from "../../components/common/Button";
 
 
 const UserLandingPage = () => {

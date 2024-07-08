@@ -3,13 +3,13 @@ import {  useState } from "react";
 import { NavLink } from "react-router-dom";
 import { NAV_LINKS } from "../../utils/LandinPageContents";
 
-import Button from "../Button";
+import Button from "../common/Button";
+import Portal from "../common/Portal";
 
 import logo from "../../assets/logo/logo.png";
 import hamburger from "../../assets/icon/icons8-hamburger-menu.svg";
 import closeButton from "../../assets/icon/icons8-close.svg"
 import Login from "../login/Login";
-import Portal from "../Portal";
 
 
 const Header = () => {

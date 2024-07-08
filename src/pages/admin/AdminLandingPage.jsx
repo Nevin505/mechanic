@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Button from "../../components/Button";
-import SideNav from "../../components/SideNav"
+import Button from "../../components/common/Button";
+import SideNav from "../../components/common/SideNav"
 import { ADMIN_PAGE_SIDEBAR } from "../../utils/AdminPageContent";
 import Dashboard from "../../components/admin/Dashboard";
 

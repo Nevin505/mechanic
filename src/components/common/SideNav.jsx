@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 
-import closeButton from "../assets/icon/icons8-close.svg";
-import hamburger from "../assets/icon/icons8-hamburger-menu.svg";
+import closeButton from "../../assets/icon/icons8-close.svg";
+import hamburger from "../../assets/icon/icons8-hamburger-menu.svg";
 
 
 

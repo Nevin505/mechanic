@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Button from "../components/Button";
-import Input from "../components/Input";
-import RadioButton from "../components/RadioButton";
+import Button from "../components/common/Button";
+import Input from "../components/common/Input";
+import RadioButton from "../components/common/RadioButton";
 
 import {registerUser } from "../apis/auth";
 import { valiadateInputs } from "../utils/FormValidation";
@@ -28,22 +28,29 @@ const Register = () => {
   const registerHandler = async(e) => {
     e.preventDefault();
 
+    // Using FormData to get Values from the form 
     const formData = new FormData(e.target);
 
-    const firstName = formData.get("firstName");
-    const lastName = formData.get("lastName");
-    const phoneNumber = formData.get("phoneNumber");
-    const email = formData.get("email");
-    const password = formData.get("password");
     const role = formData.get("role");
+  
+    const inputValues={};
+// to get the values from the form using formData method  like this {eg: const firstName = formData.get("firstName")} ;
+    inputFields.map(inputField=>{
+      inputValues[inputField.name]=formData.get(inputField.name)
+    })
 
-   const validateKeys={ firstName,lastName,phoneNumber,email,password,role}
+    inputValues.role=role
 
-    const valiadte = valiadateInputs(errorHandler,validateKeys);
 
-    if (valiadte) {
+    const validate=valiadateInputs(errorHandler,inputValues)
+
+    if (validate) {
       try {
-        const response = await registerUser({firstName,lastName,email,password,phoneNumber,role});
+        // const response = await registerUser({firstName,lastName,email,password,phoneNumber,role});
+
+        // Api to register User
+        console.log(inputValues)
+        const response=await registerUser(inputValues);
         console.log("response",response)
         console.log(response);
         if (response.status === 201) {
@@ -88,6 +95,7 @@ const Register = () => {
 
         <div className="flex  flex-col gap-1  items-center">
           <div className="flex gap-2">
+            {/* Neeed  */}
             Role :
             <RadioButton
               type="radio"
@@ -113,3 +121,16 @@ const Register = () => {
 };
 
 export default Register;
+
+    // const firstName = formData.get("firstName");
+    // const lastName = formData.get("lastName");
+    // const phoneNumber = formData.get("phoneNumber");
+    // const email = formData.get("email");
+    // const password = formData.get("password");
+
+
+      //  const validateKeys={ firstName,lastName,phoneNumber,email,password,role}
+
+  // const validateKeys=inputValues
+
+    // const valiadte = valiadateInputs(errorHandler,validateKeys);

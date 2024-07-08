@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchService } from "../../apis/user/Services";
 
-import Button from "../Button";
+import Button from "../common/Button";
 import VehicleServiceForm from "./VehicleServiceForm";
 
 const ServiceAndVehicleRegistration = ({ services ,serviceType}) => {

@@ -1,5 +1,5 @@
 import { SERVICES } from "../../utils/UserPageContent";
-import VerticalScrollBar from "../VerticalScrollBar";
+import VerticalScrollBar from "../common/VerticalScrollBar";
 
 const Services = ({selectService}) => {
 

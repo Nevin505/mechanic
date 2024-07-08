@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import Input from "../../components/Input";
+import Input from "../../components/common/Input";
+import Button from "../../components/common/Button";
 
 import { TECHNICAN_REGISTRATION_FORM } from "../../utils/AdminPageContent";
 import { valiadateInputs } from "../../utils/FormValidation";
-import Button from "../../components/Button";
 import { addTechinican } from "../../apis/admin/Services";
 
 const AddTechinican = () => {

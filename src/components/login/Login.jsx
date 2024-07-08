@@ -7,8 +7,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Custom Compoenets
-import Button from '../Button'
-import Input from '../Input';
+import Button from '../common/Button'
+import Input from '../common/Input';
 
 // Icons
 import { MdEmail } from "react-icons/md";

@@ -1,7 +1,7 @@
 import Carousel from "../components/LandingPage/Carousel";
 import Header from "../components/LandingPage/Header";
 
-import Card from "../components/Card";
+import Card from "../components/common/Card";
 
 import LandinPageStyles from "./landingPage.module.css";
 
@@ -114,7 +114,7 @@ const LandinPage = () => {
           <div className="flex flex-col flex-1  gap-4 items-center">
             <h1 className="text-2xl">Links</h1>
             {LINKS.map(link=>{
-              return <li>{link}</li>
+              return <li key={link}>{link}</li>
             })}
           </div>
         </div>
