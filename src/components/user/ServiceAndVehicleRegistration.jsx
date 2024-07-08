@@ -33,7 +33,7 @@ const ServiceAndVehicleRegistration = ({ services ,serviceType}) => {
   const addUserServiceHandler=(service)=>{
     console.log("clicked")
     console.log(service)
-    const userService={...service,serviceType};
+    const userService={...service,serviceType,serviceStatus:"Created"};
     const prevUserServices=[...userServices];
    const result=prevUserServices.find((prevService=>prevService._id===service._id));
    if(!result){

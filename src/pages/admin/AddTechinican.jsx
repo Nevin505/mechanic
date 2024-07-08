@@ -13,7 +13,7 @@ const AddTechinican = () => {
   const [errors, setErrors] = useState();
   
   // to use a state to add multiple drop down values
-  const[selectedDropdownValues,setSelectedDropdownValues]=useState([])
+  const[selectedDropdownValues,setSelectedDropdownValues]=useState(["Periodic Services","Cleaning"])
 
   // To Add DropDown Values
   const dropdownValues=(e)=>{
@@ -22,13 +22,14 @@ const AddTechinican = () => {
       console.log(e.target.value)
       if(!(newDropdownValues.includes(e.target.value))){
         console.log(newDropdownValues)
+        
         newDropdownValues.push(e.target.value)
       }
      return newDropdownValues;
 
     })
   }
-
+console.log(selectedDropdownValues)
 // to remove drop down values while on clicking the selectable paragraph
   const removeSelectedDropValues=(selectedDropdownValue)=>{
     console.log(selectedDropdownValue)
@@ -66,6 +67,7 @@ const AddTechinican = () => {
           const response = await addTechinican(requestObject);
           if(response.status===201){
             toast.success("Created")
+            setSelectedDropdownValues(["Periodic Services","Cleaning"])
             console.log("response",response)
           }      
       } catch (error) {

@@ -17,3 +17,14 @@ export const TECHNICAN_DOMAIN=[
   {specilization:"Lights and Fitments",value:"Lights and Fitments"}
 
 ]
+
+export const dropDownFilterOptions = [
+  { label: "Select your option", value: " " },
+  { label: "Periodic Services", value: "Periodic Services" },
+  { label: "Engine Decarbonization", value: "Engine Decarbonization" },
+  { label: "Tyres And wheels", value: "Tyres And wheels" },
+  { label: "Lights and Fitments", value: "Lights and Fitments" },
+  { label: "Denting And Painting", value: "Denting And Painting" },
+  { label: "Oil Change", value: "Oil Change" },
+  { label: "Batteries", value: "Batteries" },
+];
