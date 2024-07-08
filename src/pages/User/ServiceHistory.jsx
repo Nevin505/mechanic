@@ -25,7 +25,7 @@ const ServiceHistory = () => {
       {serviceOrders.map((serviceOrder) => {
         return (
           <div className="flex flex-col w-3/4 px-8 py-2  border-2 border-gray-600 rounded-lg " key={serviceOrder._id}>
-            <p className="text-gray-600">Service Id :# {serviceOrder._id}</p>
+            <p className="text-gray-600 border-b-2 border-gray-800 w-fit px-2">Service Id :# {serviceOrder._id}</p>
             <div className="flex gap-2 justify-between ">
               <p>Model : { serviceOrder.model}</p>
               <p>Company : { serviceOrder.company}</p>

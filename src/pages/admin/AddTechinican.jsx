@@ -7,9 +7,38 @@ import { TECHNICAN_DOMAIN, TECHNICAN_REGISTRATION_FORM } from "../../utils/Admin
 import { valiadateInputs } from "../../utils/FormValidation";
 import { addTechinican } from "../../apis/admin/Services";
 import MultipleSelectDropdownTag from "../../components/common/MultipleSelectDropdownTag";
+import { toast, ToastContainer } from "react-toastify";
 
 const AddTechinican = () => {
   const [errors, setErrors] = useState();
+  
+  // to use a state to add multiple drop down values
+  const[selectedDropdownValues,setSelectedDropdownValues]=useState([])
+
+  // To Add DropDown Values
+  const dropdownValues=(e)=>{
+    setSelectedDropdownValues(prev=>{
+      const newDropdownValues=[...prev];
+      console.log(e.target.value)
+      if(!(newDropdownValues.includes(e.target.value))){
+        console.log(newDropdownValues)
+        newDropdownValues.push(e.target.value)
+      }
+     return newDropdownValues;
+
+    })
+  }
+
+// to remove drop down values while on clicking the selectable paragraph
+  const removeSelectedDropValues=(selectedDropdownValue)=>{
+    console.log(selectedDropdownValue)
+    setSelectedDropdownValues(prevValues=>{
+      const updatedValues=[...prevValues];
+      return updatedValues.filter(prevValue=>{
+       return prevValue!=selectedDropdownValue
+      })
+     })
+  }
   
 
   const errorHandler = (formErrors) => {
@@ -24,20 +53,21 @@ const AddTechinican = () => {
     const lastName = formData.get("lastName");
     const email = formData.get("email");
     const experiance = formData.get("experiance");
-    const domain = formData.get("domain");
     const password = formData.get("password");
     const phoneNumber = formData.get("phoneNumber");
 
   
-    const validateKeys = { firstName, lastName, email, experiance, domain ,password,phoneNumber};
+    const validateKeys = { firstName, lastName, email, experiance ,password,phoneNumber};
     
     const valiadte = valiadateInputs(errorHandler, validateKeys);
     if (valiadte) {
       try {
-        const requestObject={ firstName, lastName, email, experiance, domain ,password,phoneNumber}
+        const requestObject={ firstName, lastName, email, experiance, domain:selectedDropdownValues ,password,phoneNumber}
           const response = await addTechinican(requestObject);
-          if(response.status===201)
-          console.log("response",response)
+          if(response.status===201){
+            toast.success("Created")
+            console.log("response",response)
+          }      
       } catch (error) {
         console.log(error)
         alert("Something went Wrong");
@@ -51,7 +81,7 @@ const AddTechinican = () => {
        <div className="flex flex-col  items-center pt-8 w-[36rem]">
       <h1 className="text-center ">Technician Register Form</h1>
       <form
-        className="flex flex-wrap gap-4 items-center justify-center w-[36rem]  border-2 border-white p-8 rounded-xl max-lg:w-80"
+        className="flex flex-wrap gap-4 items-center justify-center w-[36rem]  border-2 border-white p-8 rounded-xl max-lg:w-80 "
         onSubmit={(e) => addTechnician(e)}
       >
         {TECHNICAN_REGISTRATION_FORM.map((VehicleServiceform) => {
@@ -73,12 +103,14 @@ const AddTechinican = () => {
             </div>
           );
         })}
-        <div>{}</div>
+
       {/* Multiple DropDown Values  to enter their Domain*/}
-        <MultipleSelectDropdownTag dropdownOptions={TECHNICAN_DOMAIN}/>
+        <MultipleSelectDropdownTag dropdownOptions={TECHNICAN_DOMAIN} removeSelectedDropValues={removeSelectedDropValues} dropdownValues={dropdownValues} selectedDropdownValues={selectedDropdownValues}/>
         <Button>Submit</Button>
+
       </form>
     </div>
+    <ToastContainer position='top-center'/>
     </div>
   );
 };

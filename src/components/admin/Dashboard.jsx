@@ -27,7 +27,7 @@ const Dashboard = () => {
     };
     fetchTechnicianDetails();
   }, []);
-
+console.log(techinicianDetails)
   return (
     <div className="w-full max-container  flex flex-col items-center justify-around min-h-screen ">
       {/* {isLoading? <p>Loadinggg</p>:<> */}
@@ -57,8 +57,10 @@ const Dashboard = () => {
                   <td className="border-2  border-primary-700">
                     {techinicianDetail.email}
                   </td>
-                  <td className="border-2  border-primary-700">
-                    {techinicianDetail.domain}
+                  <td className="border-2  border-primary-700 text-start px-2">
+                    {techinicianDetail.domain.map(techinDomain=>{
+                      return <li className="list-disc" key={techinDomain}>{techinDomain}</li>
+                    })}
                   </td>
                   <td className="border-2  border-primary-700">
                     {techinicianDetail.ticketsAssigined}

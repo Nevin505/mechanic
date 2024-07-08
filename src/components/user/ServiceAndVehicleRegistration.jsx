@@ -4,6 +4,8 @@ import { fetchService } from "../../apis/user/Services";
 import Button from "../common/Button";
 import VehicleServiceForm from "./VehicleServiceForm";
 
+import  selectServices from  '../../assets/user-page/cartImage.png'
+
 const ServiceAndVehicleRegistration = ({ services ,serviceType}) => {
 
   const [service, setService] = useState();
@@ -65,7 +67,10 @@ console.log(userServices)
                 </div>
             );
           })
-        :  <p >Please Select a Service</p>}
+        :  <div className="flex flex-col items-center  gap-8 ">
+          <img src={selectServices} alt="Select a Service Image" />
+          <p>Select a Service</p>
+          </div>}
         </div>
           <VehicleServiceForm userServices={userServices} clearPreviousOrder={clearPreviousOrder}/>
     </div>

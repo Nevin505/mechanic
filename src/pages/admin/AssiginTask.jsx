@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { filterByType, getTask } from "../../apis/admin/Services";
 import Dashboard from "../../components/admin/Dashboard";
+import { fetchTechinican } from "../../apis/techinician/service";
 
 // Function to Format time in day/month/year time Format
 const formatTime = (time) => {
@@ -21,18 +22,31 @@ const dropDownFilterOptions = [
 ];
 
 const AssiginTask = () => {
+
   const [showTasks, setShowTask] = useState([]);
 
   const [filtereTask, setFilteredTask] = useState([]);
 
-  const [displayedTask, setDisplayedTask] = useState([]);
+  const [fetchTechinicianDetails, setFetchTechinicianDetails] = useState([]);
+
+
+    // to Fetch Techinicans
+    useEffect(()=>{
+      const fetchTechinicians=async()=>{
+        const fetchTechinica= await fetchTechinican();
+        setFetchTechinicianDetails(fetchTechinica.data)
+      }
+      fetchTechinicians()
+    },[])
+  
+    console.log(fetchTechinicianDetails)
 
   useEffect(() => {
     const getCreatedTask = async () => {
       const response = await getTask("Created");
       if (response.status === 200) {
         setShowTask(response.data);
-        setDisplayedTask(response.data);
+        setFilteredTask(response.data)
       }
     };
     getCreatedTask();
@@ -40,22 +54,27 @@ const AssiginTask = () => {
     console.log("Rendering the use Efffect");
   }, []);
 
+  // Filteration base on the drop down
   const filterByServiceType = async (e) => {
     const serviceType = e.target.value;
     const result = await filterByType(serviceType);
     setFilteredTask(result.data);
-    setDisplayedTask(result.data);
   };
 
+  const getDropDownOptions=(params)=>{
+     return fetchTechinicianDetails.filter(fetchTechinicianDetail=>fetchTechinicianDetail.domain.includes(params));
+  }
+
   const fetchAll = () => {
-    setDisplayedTask(showTasks);
+    setFilteredTask(showTasks);
   };
+
 
   return (
     <div className="flex flex-col gap-4 max-container max-lg:w-full">
       <div className="border-2 border-primary-700 px-4 py-2 self-end">
         Sort By Service Types
-        <select name="serviceType" onClick={(e) => filterByServiceType(e)}>
+        <select name="serviceType" onChange={(e) => filterByServiceType(e)}>
           {dropDownFilterOptions.map((dropDownFilterOption) => {
             return (
               <option disabled={dropDownFilterOption.value==" "?true:false}  selected={dropDownFilterOption.value==" "}
@@ -71,8 +90,8 @@ const AssiginTask = () => {
 
       {/* To Dipaly the list of orders */}
       <div className="flex flex-col gap-2 items-center px-4 w-full">
-        {displayedTask.length > 0 ? (
-          displayedTask?.map((showTask) => {
+        {filtereTask.length > 0 ? (
+          filtereTask?.map((showTask) => {
             return (
               <div
                 key={showTask._id}
@@ -93,7 +112,12 @@ const AssiginTask = () => {
                         </ul>
                         <label htmlFor="">Assigin</label>
                         <select name="techinican" id="">
-                          <option value="">i</option>
+                        {getDropDownOptions(service.serviceType).map((user=>{
+                         return  <option value={user._id} key={user._id}>
+                          {user.firstName}
+                         </option>
+
+                        }))}
                         </select>
                       </div>
                     );
@@ -108,7 +132,7 @@ const AssiginTask = () => {
           <p>No Records Are available</p>
         )}
       </div>
-      {filtereTask === displayedTask && (
+      {filtereTask.length < showTasks.length && (
         <button onClick={fetchAll}>back</button>
       )}
       {/* <Dashboard/> */}
