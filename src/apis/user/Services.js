@@ -15,6 +15,6 @@ export const updateCartDetails=async(reqBody)=>{
 }
 
 // to get the user service history
-export const serviceHistory=async()=>{
-  return await axios.get(`${BASE_URL}/user/service-history`,{},{})
+export const serviceHistory=async(reqHeaders)=>{
+  return await axios.get(`${BASE_URL}/user/service-history`,reqHeaders)
 }

@@ -3,12 +3,14 @@ import { useState } from "react";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 
-import { TECHNICAN_REGISTRATION_FORM } from "../../utils/AdminPageContent";
+import { TECHNICAN_DOMAIN, TECHNICAN_REGISTRATION_FORM } from "../../utils/AdminPageContent";
 import { valiadateInputs } from "../../utils/FormValidation";
 import { addTechinican } from "../../apis/admin/Services";
+import MultipleSelectDropdownTag from "../../components/common/MultipleSelectDropdownTag";
 
 const AddTechinican = () => {
   const [errors, setErrors] = useState();
+  
 
   const errorHandler = (formErrors) => {
     setErrors(formErrors);
@@ -71,6 +73,9 @@ const AddTechinican = () => {
             </div>
           );
         })}
+        <div>{}</div>
+      {/* Multiple DropDown Values  to enter their Domain*/}
+        <MultipleSelectDropdownTag dropdownOptions={TECHNICAN_DOMAIN}/>
         <Button>Submit</Button>
       </form>
     </div>

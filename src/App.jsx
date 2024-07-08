@@ -5,10 +5,13 @@ import UserLandingPage from "./pages/User/UserLandingPage"
 import AdminLandingPage from "./pages/admin/AdminLandingPage"
 import AddTechinican from "./pages/admin/AddTechinican"
 import AssiginTask from "./pages/admin/AssiginTask"
+import ServiceHistory from "./pages/User/ServiceHistory"
+import CustomerSupport from "./pages/User/CustomerSupport"
+import Invoice from "./pages/User/Invoice"
+import Report from "./pages/admin/Report"
 
 function App() {
 
-  //  createBrowserRouter([])
 
   return (
     <>
@@ -19,6 +22,10 @@ function App() {
         <Route path="/admin"   element={<AdminLandingPage />} />
         <Route path="/add-techinican"   element={<AddTechinican />} />
         <Route path="/assigin-task"   element={<AssiginTask />} />
+        <Route path="/service-history"   element={< ServiceHistory />} />
+        <Route path="/customer-support"   element={<CustomerSupport/>} />
+        <Route path="/invoice"   element={<Invoice/>} />
+        <Route path="/report"   element={<Report/>} />
     </Routes>
    </>
   )

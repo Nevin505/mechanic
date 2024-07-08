@@ -16,12 +16,10 @@ export const SERVICES = [
   { title: "Cleaning", imageLink: cleaning },
 ];
 export const USER_SIDE_NAV = [
-  "Dashboard",
-  " Book a Service",
-  " Service History",
-  " Invoices",
-  "Notifications",
-  "Support/Contact Us",
+  // {label:"Book a Service", link:'/user'},
+  {label:" Service History", link:'/service-history'},
+  {label:"Invoices", link:'/invoice'},
+  {label:"Support/Contact Us", link:'/customer-support'}
 ];
 
 export const VEHICLE_SERVICE_FORMS = [

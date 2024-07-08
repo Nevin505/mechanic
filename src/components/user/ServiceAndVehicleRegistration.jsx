@@ -5,6 +5,7 @@ import Button from "../common/Button";
 import VehicleServiceForm from "./VehicleServiceForm";
 
 const ServiceAndVehicleRegistration = ({ services ,serviceType}) => {
+
   const [service, setService] = useState();
 
    const[userServices,setUserService]=useState([]);

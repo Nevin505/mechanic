@@ -8,21 +8,26 @@ const UserService = ({userServices,cartOrderId,showVehicleRegistrationForm}) => 
 
   const[orderStatus,setOrderStatus]=useState(false);
 
-
+// to add Services to the cart
   const updateCart=async()=>{
-    console.log("Clicked")
-    console.log(cartOrderId)
-           const reqBody={cartId:cartOrderId,userServices};
-           const response=await updateCartDetails(reqBody);
-           if(response.status===200){
-            console.log("Here")
-            setOrderStatus(true)
-           }
-           console.log(response)
+          if(userServices.length>0){
+            const reqBody={cartId:cartOrderId,userServices};
+            const response=await updateCartDetails(reqBody);
+            if(response.status===200){
+             console.log("Here")
+             setOrderStatus(true)
+            }
+            console.log(response)
+          }
+          else{
+            alert("Add Services")
+          }
   }
+
   const newServiceOrderHandler=()=>{
     showVehicleRegistrationForm();
   }
+  
   return (
     <div className="flex flex-col justify-between items-center w-full h-full">
        {!orderStatus ? <>

@@ -6,6 +6,7 @@ import { useState } from "react";
 import ServiceAndVehicleRegistration from "../../components/user/ServiceAndVehicleRegistration";
 import { USER_SIDE_NAV } from "../../utils/UserPageContent";
 import Button from "../../components/common/Button";
+import { Link } from "react-router-dom";
 
 
 const UserLandingPage = () => {
@@ -21,8 +22,8 @@ const UserLandingPage = () => {
       <SideNav>
       {USER_SIDE_NAV.map((sideNav,index) => {
               return (
-                <div key={index} className="text-white cursor-pointer hover:bg-slate-950">
-                  {sideNav}
+                <div key={index} className="text-white cursor-pointer px-2 py-4 rounded-lg hover:bg-slate-950">
+                   <Link to={sideNav.link}> {sideNav.label}</Link>
                 </div>
               );
             })}

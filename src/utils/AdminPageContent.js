@@ -1,4 +1,4 @@
-export const ADMIN_PAGE_SIDEBAR=[{label:"Assigin Task",navigate:"/assigin-task"},{label:"Add Techinican",navigate:"/add-techinican"},{label:"Report",navigate:""}]
+export const ADMIN_PAGE_SIDEBAR=[{label:"Assigin Task",navigate:"/assigin-task"},{label:"Add Techinican",navigate:"/add-techinican"},{label:"Report",navigate:"/report"}]
 
 export const TECHNICAN_REGISTRATION_FORM = [
     { placeholder: "First name", name: "firstName", type: "text" },
@@ -7,6 +7,14 @@ export const TECHNICAN_REGISTRATION_FORM = [
     { placeholder: "Password", name: "password", type: "number" },
     { placeholder: "Experiance", name: "experiance", type: "number" },
     { placeholder: "PhoneNumber", name: "phoneNumber", type: "number" },
-    { placeholder: "Domain", name: "domain", type: "text" }
+    // { placeholder: "Domain", name: "domain", type: "text" }
   ];
   
+export const TECHNICAN_DOMAIN=[
+  {specilization:"Denting And Painting",value:"Denting And Painting"},
+  {specilization:"Oil Change",value:"Oil Change"},
+  {specilization:"Tyres and Wheels",value:"Tyres and Wheels"},
+  {specilization:"Engine Decarbonization",value:"Engine Decarbonization"},
+
+
+]
