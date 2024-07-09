@@ -13,10 +13,11 @@ const formatTime = (time) => {
 
 const AssiginTask = () => {
 
-  // 
+  // to store the fetched Result
   const [serviceOrder, setServiceOrder] = useState([]);
 
-  const [filteredServices, setFilteredServices] = useState([]);
+  // to store the filtered Services based on the query Type
+  const [filtereQuery, setFiltereQuery] = useState('');
 
   const [technicianDetails, setTechnicianDetails] = useState([]);
 
@@ -33,29 +34,29 @@ const AssiginTask = () => {
     fetchTechinicians();
   }, []);
 
-  console.log(technicianDetails);
-
 // To fetch service Order which has to be assigined
-  useEffect(() => {
-    const getCreatedTask = async () => {
-      const response = await getNewServiceOrder("Created");
-      if (response.status === 200) {
-        setServiceOrder(response.data);
-        setFilteredServices(response.data);
-      }
-    };
+  useEffect(() => { 
     getCreatedTask();
   }, []);
 
+  const getCreatedTask = async () => {
+    const response = await getNewServiceOrder("Created");
+    if (response.status === 200) {
+      setServiceOrder(response.data);
+      // setFilteredServices(response.data);
+    }
+  };
   // Filteration based on the drop down i.e based on the service type
   const filterByServiceType = async (e) => {
     const serviceType = e.target.value;
+    setFiltereQuery(serviceType)
     const result = await filterByType(serviceType);
-    setFilteredServices(result.data);
+    // setFilteredServices(serviceOrder);
+    setServiceOrder(result.data)
   };
 
-  
   const getDropDownOptions = (params) => {
+    console.log(params)
     const  upadateList= technicianDetails.filter((fetchTechinicianDetail) =>
       fetchTechinicianDetail.domain.includes(params)
     );
@@ -65,9 +66,11 @@ const AssiginTask = () => {
 
   // To bring the original Result back after Filteration Process 
   const fetchAll = () => {
-    setFilteredServices(serviceOrder);
-  };
+    // setFilteredServices(serviceOrder);
+    setFiltereQuery('')
+    getCreatedTask();
 
+  };
 
   const assiginTaskHandler=async(e)=>{
      setAssignTech(e.target.value)
@@ -82,10 +85,10 @@ const AssiginTask = () => {
          console.log(serviceOrderId,serviceTaskId)
          try{
           const reqBody={serviceOrderId,serviceTaskId,techinicainId:assignTech}
-
             // "Created"
           console.log(serviceOrders)
-
+          // to reset the techinician Value
+          setAssignTech("")
           const result= await assiginTechinician(reqBody);
           setServiceOrder((prev=>{
           const updatedServiceOrders=[...prev];
@@ -94,26 +97,19 @@ const AssiginTask = () => {
          updatedServiceOrders[updatedServiceOrderIndex]=result.data
           return updatedServiceOrders;
          }))
+// To Automatically Updated the Status of the whole Orde
          count=serviceOrders.reduce((acumulator,serviceOrder)=>{
           if(serviceOrder.serviceStatus==='Assigined'){
                return acumulator+1;
           }
           return acumulator
         },0)
-        console.log("The Acummaltor Value",count)
 
          if(count===serviceOrders.length-1){
           const reqBody={serviceOrderId:serviceOrderId}
-          console.log("okay ")
             const updatedServiceOrder= await changeServiceOrderStatus(reqBody)
-            console.log("The Service Order from the api call ")
-            console.log(updatedServiceOrder)
-            console.log("The Service Order from the state serviceOrder ")
-
-            console.log(serviceOrder)
             setServiceOrder(prevServicOrder=>{
-              const prevupdatedServiceOrders=[...prevServicOrder];
-              
+              const prevupdatedServiceOrders=[...prevServicOrder];             
               return prevupdatedServiceOrders.filter((prevupdatedServiceOrder)=>prevupdatedServiceOrder._id!==updatedServiceOrder.data._id)
             })
         }
@@ -123,12 +119,6 @@ const AssiginTask = () => {
          }
       }
   }
-console.log("The Service Ordre")
-console.log(serviceOrder)
-
-
-
-
 
   return (
     <div className="flex flex-col gap-4 max-container max-lg:w-full">
@@ -208,9 +198,10 @@ console.log(serviceOrder)
           <p>No Records Are available</p>
         )}
       </div>
-      {filteredServices?.length < serviceOrder.length && (
+      {/* {filteredServices?.length < serviceOrder.length && (
         <button onClick={fetchAll}>back</button>
-      )}
+      )} */}
+       { filtereQuery &&  <button onClick={fetchAll}>back</button>}
     </div>
   );
 };
