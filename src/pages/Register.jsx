@@ -46,8 +46,6 @@ const Register = () => {
 
     if (validate) {
       try {
-        // const response = await registerUser({firstName,lastName,email,password,phoneNumber,role});
-
         // Api to register User
         console.log(inputValues)
         const response=await registerUser(inputValues);

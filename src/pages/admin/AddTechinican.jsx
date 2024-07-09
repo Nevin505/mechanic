@@ -48,22 +48,23 @@ console.log(selectedDropdownValues)
 
   const addTechnician = async(event) => {
     event.preventDefault();
+    
+    // To get the input values from the Register Form using Form Data
+    const inputFieldValues={}
+
     const formData = new FormData(event.target);
 
-    const firstName = formData.get("firstName");
-    const lastName = formData.get("lastName");
-    const email = formData.get("email");
-    const experiance = formData.get("experiance");
-    const password = formData.get("password");
-    const phoneNumber = formData.get("phoneNumber");
+    TECHNICAN_REGISTRATION_FORM.forEach(TECHNICAN_REGISTRATION_FORM_FIELD=>{
+      inputFieldValues[TECHNICAN_REGISTRATION_FORM_FIELD.name]=formData.get(TECHNICAN_REGISTRATION_FORM_FIELD.name)
+    })
 
-  
-    const validateKeys = { firstName, lastName, email, experiance ,password,phoneNumber};
-    
-    const valiadte = valiadateInputs(errorHandler, validateKeys);
+//   To Perfrom Validation Only Checking if the value associated with the input field is empty or not
+    const valiadte = valiadateInputs(errorHandler, inputFieldValues);
+
+    // if not then sending the request to the backend to create a new Techinician
     if (valiadte) {
       try {
-        const requestObject={ firstName, lastName, email, experiance, domain:selectedDropdownValues ,password,phoneNumber}
+        const requestObject={ ...inputFieldValues , domain:selectedDropdownValues}
           const response = await addTechinican(requestObject);
           if(response.status===201){
             toast.success("Created")

@@ -7,7 +7,7 @@ export const addTechinican=async(reqbody)=>{
 }
 
 // api to fetch all the order to being assigined
-export const getTask=async(serviceStatus)=>{
+export const getNewServiceOrder=async(serviceStatus)=>{
     return await axios.get(`${BASE_URL}/admin/fetch-orders?status=${serviceStatus}`,{},{})
 }
 
@@ -29,4 +29,7 @@ export const fetchTechinicianDetails=async()=>{
 export const getVehiclesCount=async()=>{
     return await axios.get(`${BASE_URL}/admin/get-count`,{},{})
 }
-
+// To assigin Techinicain
+export const assiginTechinician=async(reqbody)=>{
+return await axios.put(`${BASE_URL}/admin/assigin-techini`,reqbody)
+}

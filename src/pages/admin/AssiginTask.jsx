@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { filterByType, getTask } from "../../apis/admin/Services";
-import Dashboard from "../../components/admin/Dashboard";
+import { assiginTechinician, filterByType, getNewServiceOrder } from "../../apis/admin/Services";
 import { fetchTechinican } from "../../apis/techinician/service";
 import { dropDownFilterOptions } from "../../utils/AdminPageContent";
 
@@ -13,68 +12,88 @@ const formatTime = (time) => {
 };
 
 const AssiginTask = () => {
-  const [showTasks, setShowTask] = useState([]);
 
-  const [filtereTask, setFilteredTask] = useState([]);
+  // 
+  const [serviceOrder, setServiceOrder] = useState([]);
 
-  const [fetchTechinicianDetails, setFetchTechinicianDetails] = useState([]);
+  const [serviceOrdersByType, setServiceOrdersByType] = useState([]);
+
+  const [technicianDetails, setTechnicianDetails] = useState([]);
+
+  // to store the selected Agents from the dropDown
+  const [assignTech,setAssignTech]=useState();
+
 
   // to Fetch Techinicans
   useEffect(() => {
     const fetchTechinicians = async () => {
       const fetchTechinica = await fetchTechinican();
-      setFetchTechinicianDetails(fetchTechinica.data);
+      setTechnicianDetails(fetchTechinica.data);
     };
     fetchTechinicians();
   }, []);
 
-  console.log(fetchTechinicianDetails);
+  console.log(technicianDetails);
 
+// To fetch service Order which has to be assigined
   useEffect(() => {
     const getCreatedTask = async () => {
-      const response = await getTask("Created");
+      const response = await getNewServiceOrder("Created");
       if (response.status === 200) {
-        setShowTask(response.data);
-        setFilteredTask(response.data);
+        setServiceOrder(response.data);
+        setServiceOrdersByType(response.data);
       }
     };
     getCreatedTask();
-
-    console.log("Rendering the use Efffect");
   }, []);
 
-  // Filteration base on the drop down
+  // Filteration based on the drop down i.e based on the service type
   const filterByServiceType = async (e) => {
     const serviceType = e.target.value;
     const result = await filterByType(serviceType);
-    setFilteredTask(result.data);
+    setServiceOrdersByType(result.data);
   };
 
+  
   const getDropDownOptions = (params) => {
-    const  upadateList= fetchTechinicianDetails.filter((fetchTechinicianDetail) =>
+    const  upadateList= technicianDetails.filter((fetchTechinicianDetail) =>
       fetchTechinicianDetail.domain.includes(params)
     );
      upadateList.unshift({_id:"", disabled:"true",firstName:"Assigin a Techinician",domain:params})
      return upadateList;
   };
 
+  // To bring the original Result back after Filteration Process 
   const fetchAll = () => {
-    setFilteredTask(showTasks);
+    setServiceOrdersByType(serviceOrder);
   };
 
-  const [assignTech,setAssignTech]=useState();
 
   const assiginTaskHandler=async(e)=>{
      setAssignTech(e.target.value)
   }
 
-  const updateServiceTaskHandler=(serviceOrderId,serviecTaskID)=>{
+  const updateServiceTaskHandler=async(serviceOrderId,serviceTaskId)=>{
      if(!assignTech){
       alert("Assigin a Techinician")
      }
      else{
-         console.log(serviceOrderId,serviecTaskID)
-     }
+         console.log(serviceOrderId,serviceTaskId)
+         try{
+          const reqBody={serviceOrderId,serviceTaskId,techinicainId:assignTech}
+          const result= await assiginTechinician(reqBody);
+         setServiceOrdersByType((prev=>{
+          const updatedOne=[...prev];
+         const newUpdatedOneIndex= updatedOne.findIndex(updated=>updated._id===serviceOrderId);
+         updatedOne[newUpdatedOneIndex]=result.data
+        //  newUpdatedOne.unshift(result.data)
+          return updatedOne;
+         }))
+         }
+         catch(error){
+          console.log(error)
+         }
+      }
   }
 
   return (
@@ -99,8 +118,8 @@ const AssiginTask = () => {
 
       {/* To Dipaly the list of orders */}
       <div className="flex flex-col gap-2 items-center px-4 w-full">
-        {filtereTask.length > 0 ? (
-          filtereTask?.map((showTask) => {
+        {serviceOrdersByType.length > 0 ? (
+          serviceOrdersByType?.map((showTask) => {
             return (
               <div
                 key={showTask._id}
@@ -140,7 +159,7 @@ const AssiginTask = () => {
                           </select>
                           </div>}
                           <p>Service Status:{service.serviceStatus}</p>
-                          <button onClick={()=>updateServiceTaskHandler(showTask._id,service._id)}>Assigin</button>
+                        { service.serviceStatus==='Created'&& <button onClick={()=>updateServiceTaskHandler(showTask._id,service._id)}>Assigin</button>}
                         </div>
                       </div>
                     );
@@ -155,10 +174,9 @@ const AssiginTask = () => {
           <p>No Records Are available</p>
         )}
       </div>
-      {filtereTask.length < showTasks.length && (
+      {serviceOrdersByType?.length < serviceOrder.length && (
         <button onClick={fetchAll}>back</button>
       )}
-      {/* <Dashboard/> */}
     </div>
   );
 };
