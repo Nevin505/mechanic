@@ -33,3 +33,9 @@ export const getVehiclesCount=async()=>{
 export const assiginTechinician=async(reqbody)=>{
 return await axios.put(`${BASE_URL}/admin/assigin-techini`,reqbody)
 }
+
+//To Update the Status of the Service Order
+export const changeServiceOrderStatus=async(reqbody)=>{
+    return await axios.put(`${BASE_URL}/admin/order-status`,reqbody)
+}
+

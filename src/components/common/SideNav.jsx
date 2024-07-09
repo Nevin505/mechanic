@@ -16,7 +16,7 @@ const SideNav = ({children}) => {
     <>
       {!isSideNavVisible ? (
         <button
-          className="cursor-pointer p-2 fixed top-10 left-0"
+          className="cursor-pointer p-2 absolute top-10 left-0"
           onClick={() => setSideNavVisible(true)}
         >
           <img src={hamburger} alt="hamBurger" />

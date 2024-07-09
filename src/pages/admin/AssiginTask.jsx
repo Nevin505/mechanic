@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { assiginTechinician, filterByType, getNewServiceOrder } from "../../apis/admin/Services";
+import { assiginTechinician, changeServiceOrderStatus, filterByType, getNewServiceOrder } from "../../apis/admin/Services";
 import { fetchTechinican } from "../../apis/techinician/service";
 import { dropDownFilterOptions } from "../../utils/AdminPageContent";
 
@@ -16,7 +16,7 @@ const AssiginTask = () => {
   // 
   const [serviceOrder, setServiceOrder] = useState([]);
 
-  const [serviceOrdersByType, setServiceOrdersByType] = useState([]);
+  const [filteredServices, setFilteredServices] = useState([]);
 
   const [technicianDetails, setTechnicianDetails] = useState([]);
 
@@ -41,7 +41,7 @@ const AssiginTask = () => {
       const response = await getNewServiceOrder("Created");
       if (response.status === 200) {
         setServiceOrder(response.data);
-        setServiceOrdersByType(response.data);
+        setFilteredServices(response.data);
       }
     };
     getCreatedTask();
@@ -51,7 +51,7 @@ const AssiginTask = () => {
   const filterByServiceType = async (e) => {
     const serviceType = e.target.value;
     const result = await filterByType(serviceType);
-    setServiceOrdersByType(result.data);
+    setFilteredServices(result.data);
   };
 
   
@@ -65,7 +65,7 @@ const AssiginTask = () => {
 
   // To bring the original Result back after Filteration Process 
   const fetchAll = () => {
-    setServiceOrdersByType(serviceOrder);
+    setFilteredServices(serviceOrder);
   };
 
 
@@ -73,7 +73,8 @@ const AssiginTask = () => {
      setAssignTech(e.target.value)
   }
 
-  const updateServiceTaskHandler=async(serviceOrderId,serviceTaskId)=>{
+  const updateServiceTaskHandler=async(serviceOrders,serviceOrderId,serviceTaskId)=>{
+    let count=0;
      if(!assignTech){
       alert("Assigin a Techinician")
      }
@@ -81,20 +82,53 @@ const AssiginTask = () => {
          console.log(serviceOrderId,serviceTaskId)
          try{
           const reqBody={serviceOrderId,serviceTaskId,techinicainId:assignTech}
+
+            // "Created"
+          console.log(serviceOrders)
+
           const result= await assiginTechinician(reqBody);
-         setServiceOrdersByType((prev=>{
-          const updatedOne=[...prev];
-         const newUpdatedOneIndex= updatedOne.findIndex(updated=>updated._id===serviceOrderId);
-         updatedOne[newUpdatedOneIndex]=result.data
-        //  newUpdatedOne.unshift(result.data)
-          return updatedOne;
+          setServiceOrder((prev=>{
+          const updatedServiceOrders=[...prev];
+          // To find the order Id and the Update based on the result obtained from the backend
+         const updatedServiceOrderIndex= updatedServiceOrders.findIndex(updated=>updated._id===serviceOrderId);
+         updatedServiceOrders[updatedServiceOrderIndex]=result.data
+          return updatedServiceOrders;
          }))
+         count=serviceOrders.reduce((acumulator,serviceOrder)=>{
+          if(serviceOrder.serviceStatus==='Assigined'){
+               return acumulator+1;
+          }
+          return acumulator
+        },0)
+        console.log("The Acummaltor Value",count)
+
+         if(count===serviceOrders.length-1){
+          const reqBody={serviceOrderId:serviceOrderId}
+          console.log("okay ")
+            const updatedServiceOrder= await changeServiceOrderStatus(reqBody)
+            console.log("The Service Order from the api call ")
+            console.log(updatedServiceOrder)
+            console.log("The Service Order from the state serviceOrder ")
+
+            console.log(serviceOrder)
+            setServiceOrder(prevServicOrder=>{
+              const prevupdatedServiceOrders=[...prevServicOrder];
+              
+              return prevupdatedServiceOrders.filter((prevupdatedServiceOrder)=>prevupdatedServiceOrder._id!==updatedServiceOrder.data._id)
+            })
+        }
          }
          catch(error){
           console.log(error)
          }
       }
   }
+console.log("The Service Ordre")
+console.log(serviceOrder)
+
+
+
+
 
   return (
     <div className="flex flex-col gap-4 max-container max-lg:w-full">
@@ -118,8 +152,8 @@ const AssiginTask = () => {
 
       {/* To Dipaly the list of orders */}
       <div className="flex flex-col gap-2 items-center px-4 w-full">
-        {serviceOrdersByType.length > 0 ? (
-          serviceOrdersByType?.map((showTask) => {
+        {serviceOrder.length > 0 ? (
+          serviceOrder?.map((showTask) => {
             return (
               <div
                 key={showTask._id}
@@ -159,7 +193,7 @@ const AssiginTask = () => {
                           </select>
                           </div>}
                           <p>Service Status:{service.serviceStatus}</p>
-                        { service.serviceStatus==='Created'&& <button onClick={()=>updateServiceTaskHandler(showTask._id,service._id)}>Assigin</button>}
+                        { service.serviceStatus==='Created'&& <button onClick={()=>updateServiceTaskHandler(showTask.services,showTask._id,service._id)}>Assigin</button>}
                         </div>
                       </div>
                     );
@@ -174,7 +208,7 @@ const AssiginTask = () => {
           <p>No Records Are available</p>
         )}
       </div>
-      {serviceOrdersByType?.length < serviceOrder.length && (
+      {filteredServices?.length < serviceOrder.length && (
         <button onClick={fetchAll}>back</button>
       )}
     </div>
