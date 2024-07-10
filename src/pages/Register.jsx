@@ -6,12 +6,12 @@ import Input from "../components/common/Input";
 import RadioButton from "../components/common/RadioButton";
 
 import {registerUser } from "../apis/auth";
-import { valiadateInputs } from "../utils/FormValidation";
+import {  valiadateInputs } from "../utils/FormValidation";
 
 const inputFields = [
   { placeholder: "First Name", name: "firstName", type: "text" },
-  { placeholder: "Last Name", name: "lastName", type: "text" },
-  { placeholder: "Phone Number", name: "phoneNumber", type: "number" },
+  { placeholder: "Last Name", name: "lastName", type: "text"},
+  { placeholder: "Phone Number", name: "phoneNumber", type: "number"},
   { placeholder: "Email", name: "email", type: "email" },
   { placeholder: "Password", name: "password", type: "password" },
 ];
@@ -36,13 +36,20 @@ const Register = () => {
     const inputValues={};
 // to get the values from the form using formData method  like this {eg: const firstName = formData.get("firstName")} ;
     inputFields.map(inputField=>{
-      inputValues[inputField.name]=formData.get(inputField.name)
+      inputValues[inputField.name]=formData.get(inputField.name).trim();
     })
 
     inputValues.role=role
 
-
     const validate=valiadateInputs(errorHandler,inputValues)
+    console.log(errors)
+
+    // const  validateRegexPattern=regexPatternValidation(validateRegexPatternInput)
+  //   console.log("Regex Pattern")
+  // console.log(validateRegexPattern)
+
+
+
 
     if (validate) {
       try {
